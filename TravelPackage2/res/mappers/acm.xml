@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="acm">
+
+	<insert id="insert" parameterType="kr.or.ddit.app.acm.vo.AcommodationVO">
+		 INSERT INTO acm 
+		 (acm_id, acm_nm, acm_se, acm_addr, acm_pri, acm_qty, acm_rd, acm_wrt, atch_file_id)
+		VALUES   (ACM_SEQ.nextval, #{acmNm}, #{acmSe}, #{Addr}, #{Price}, #{Qty}, sysdate, #{Writer}, #{atchFileId})
+	</insert>
+	
+	<update id="update" >
+		UPDATE acm  
+    		SET acm_nm = #{acmNm}
+    		, acm_se = #{acmSe}
+    		, acm_addr = #{Addr}
+    		, acm_pri = #{Price}
+    		, acm_qty = #{Qty}
+    		, acm_rd = sysdate
+    		, acm_wrt = #{Writer}
+    		, atch_file_id = #{atchFileId}
+		WHERE             
+    		acm_id = #{acmId}    
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from acm
+		where acm_id = #{acmId}	<!-- String 으로 넘어오면 변수가 뭐든 상관없음 -->
+	</delete>
+	
+	<resultMap type="kr.or.ddit.app.acm.vo.AcommodationVO" id="acmMap">
+		<result property="acmId" column="acm_id" />
+		<result property="acmNm" column="acm_nm" />
+		<result property="acmSe" column="acm_Se" />
+		<result property="Addr" column="acm_addr" />
+		<result property="Price" column="acm_pri" />
+		<result property="Qty" column="acm_qty" />
+		<result property="acmRd" column="acm_rd" />
+		<result property="Writer" column="acm_wrt" />
+		<result property="atchFileId" column="atch_file_id" />
+	</resultMap>
+	
+	<select id="acmList" resultMap="acmMap">
+		select *
+		from acm
+	</select>
+	
+	<select id="getAcm" parameterType="acmVO" resultMap="acmMap">
+		select *
+		from acm
+		where acm_id = #{acmId}
+	</select>
+
+	
+	<select id="search" parameterType="acmVO" resultType="acmVO">
+		select * from acm where 1 = 1
+		<if test="acmId != null and acmId != ''">
+	 		and acm_id = #{acmId}
+		</if>
+		<if test="acmNm != null and acmNm != ''">
+		 	and acm_nm = #{acmNm}
+		</if>
+		<if test="acmSe != null and acmSe != ''">
+		  	and acm_se = #{acmSe}
+		</if>
+		<if test="Addr != null and Addr != ''">
+		  	and acm_addr like '%' || #{Addr} || '%'
+		</if>
+		<if test="Price != null and Price != ''">
+		  	and acm_pri like '%' || #{Price} || '%'
+		</if>
+		<if test="Qty != null and Qty != ''">
+		  	and acm_qty like '%' || #{Qty} || '%'
+		</if>
+		<if test="acmRd != null and acmRd != ''">
+		  	and acm_rd like '%' || #{acmRd} || '%'
+		</if>
+		<if test="Writer != null and Writer != ''">
+		  	and acm_wrt like '%' || #{Writer} || '%'
+		</if>
+		<if test="atchFileId != null and atchFileId != ''">
+		  	and atch_file_id like '%' || #{atchFileId} || '%'
+		</if>
+	</select>
+	
+</mapper>

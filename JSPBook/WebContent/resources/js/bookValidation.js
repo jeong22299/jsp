@@ -9,8 +9,8 @@ function CheckAddBook(){
 	if (!check(/[0-9]{4,11}$/, bookId, "[도서코드]\nISBN와 숫자를 조합하여 5~12자까지 입력하세요\n첫 글자는 반드시 ISBN으로 시작하세요"))
 		return false;
 	//상품명 체크
-	if(name.value.length <4 || name.value.length > 12) {
-		alert("[도서명]\n최소 4자에서 최대 12자까지 입력하세요");
+	if(name.value.length <4 || name.value.length > 30) {
+		alert("[도서명]\n최소 4자에서 최대 30자까지 입력하세요");
 		name.select();
 		name.focus();
 		return false;

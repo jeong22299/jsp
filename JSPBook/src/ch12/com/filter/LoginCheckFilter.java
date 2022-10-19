@@ -9,31 +9,37 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LoginCheckFilter implements Filter{
-	private FilterConfig filterConfig = null;
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		this.filterConfig  = filterConfig;
+		
 	}
 	
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		String id = request.getParameter("id");
-		String passwd = request.getParameter("passwd");
-		
-		if(id != null && passwd != null) {
-			response.setCharacterEncoding("UTF-8"); // 문자 인코딩
-			response.setContentType("text/html;charset=UTF-8"); // 콘텐츠 유형
 			
-			PrintWriter writer = response.getWriter();
-			String message = "로그인 성공.";
-			writer.println(message);
-			return;
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) resp;
+
+		HttpSession session = request.getSession();
+
+		if(session == null) {
+			response.sendRedirect("/homework/loginForm.jsp");
 		}
+		String id = (String) session.getAttribute("userId");
+
+		if(id == null) {
+			response.sendRedirect("/homework/loginForm.jsp");
+		}
+		
 		// 연속 필터가 있으면 다음 필터로 제어를 넘겨줌
-		chain.doFilter(request, response);
+		chain.doFilter(req, resp);
 	}
 	
 	@Override

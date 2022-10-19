@@ -20,9 +20,10 @@ public class ProductVO implements Serializable {
 	private String category; 	// 분류
 	private int unitsInStock;	// 재고수
 	private String condition;	// 신상품 or 중고품 or 재생품
-	
 	// ch07에서 추가함
-	private String filename; 	// 이미지 파일명
+	private String filename; 	// 이미지 파일명	
+	// ch13에서 추가함
+	private int quantity;		// 장바구니에 상품을 담은 개수
 	
 	// 기본생성자
 	public ProductVO() {}
@@ -111,13 +112,21 @@ public class ProductVO implements Serializable {
 		this.filename = filename;
 	}
 
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductVO [productId=" + productId + ", pname=" + pname + ", unitPrice=" + unitPrice + ", description="
-				+ description + ", manufacturer=" + manufacturer + ", category=" + category + ", unisInStock="
-				+ unitsInStock + ", condition=" + condition + ", filename=" + filename + "]";
+				+ description + ", manufacturer=" + manufacturer + ", category=" + category + ", unitsInStock="
+				+ unitsInStock + ", condition=" + condition + ", filename=" + filename + ", quantity=" + quantity + "]";
 	}
-	
+
 }
 
 

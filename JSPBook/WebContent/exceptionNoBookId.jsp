@@ -7,7 +7,7 @@
 <title>도서 정보 오류</title>
 </head>
 <body>
-	<jsp:include page="/homework/menu2.jsp" />
+	<jsp:include page="/bookMarket/menu2.jsp" />
 	<div class="jumbotron">
 		<!-- 내용드루와 -->
 		<div class="container">
@@ -18,10 +18,10 @@
 		<!-- http://localhost/ch06/product.jsp?id=P123789 -->
 		<div>
 			<p><%=request.getRequestURL()%>?<%=request.getQueryString()%></p>
-			<p><a href="/homework/book.jsp" class="btn btn-secondary" >도서 목록&raquo;</a></p>
+			<p><a href="/bookMarket/book.jsp" class="btn btn-secondary" >도서 목록&raquo;</a></p>
 		</div>
 	</div>
 	
-	<jsp:include page="/homework/footer2.jsp" />
+	<jsp:include page="/bookMarket/footer2.jsp" />
 </body>
 </html>
